@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Authorization</title>
+  <style>
+    body {
+    margin: 0;
+    font-family: Arial;
+    padding: 0;
+    }
+    nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+    }
+    .nav-links{
+    flex: 1;
+    text-align: right;
+    }    
+    .nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+    }
+    .nav-links ul li a{
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: large;
+    }
+    .nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: goldenrod;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+    }
+    .nav-links ul li:hover::after{
+    width: 100%;
+    }
+    .header {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(0,0,0,0.5),maroon);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    }
+    .container {
+    text-align: center;
+    color: whitesmoke;
+    width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    box-shadow: 0px 0px 180px rgba(0, 0, 0, 0.4);
+    }
+    .button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: goldenrod;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: gold;
+    }
+    #player {
+      display: block;
+      margin: 0 auto; /* Center the player horizontally */
+    }
+  </style>
+</head>
+<body>
+  <section class="header">
+    <nav>
+        <a href="notauth.html"></a>
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">AUTHORIZATION</a></li>
+            </ul>
+        </div>
+    </nav>
+  <div class="container">
+    <h1>Home Activity #2</h1>
+    <p><i>Click the button below to redirect in PUP Ofiicial Website:</i></p>
+    <button id="authButton" class="button" onclick="startAuthorization()">With Authorization</button>
+    <div id="player"></div>
+  </div>
+  </section>
+
+  <script>
+    // This function is called when the user clicks the "Start Authorization" button
+    function startAuthorization() {
+      // Hide the button
+      document.getElementById('authButton').style.display = 'none';
+
+      // Display the YouTube player
+      document.getElementById('player').style.display = 'block';
+
+      // Initialize the YouTube player
+      const player = new YT.Player('player', {
+        height: '360',
+        width: '640',
+        videoId: 'J1Ip2sC_lss', // YouTube video ID
+        playerVars: {
+          controls: 0, // Hide player controls
+          modestbranding: 1, // Hide YouTube logo
+          disablekb: 1, // Disable keyboard controls (including seeking)
+          fs: 0 // Disable fullscreen button
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+
+      // This function is called when the YouTube player is ready
+      function onPlayerReady(event) {
+        // Play the video
+        event.target.playVideo();
+      }
+
+      // This function is called when the state of the YouTube player changes
+      function onPlayerStateChange(event) {
+        // Check if the video has ended (state = 0 means ended)
+        if (event.data === YT.PlayerState.ENDED) {
+          // Redirect to the PUP website
+          window.location.href = "https://www.pup.edu.ph/";
+        }
+      }
+    }
+  </script>
+
+  <!-- Include the YouTube Iframe API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
